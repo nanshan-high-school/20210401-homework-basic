@@ -5,10 +5,17 @@
 
 using namespace std;
 
+int tagging(vector<int> temp) {
+    int tag;
+    tag = ((temp[temp.size() / 2 - 1] + temp[temp.size() / 2]) / 2);
+    return tag;
+}
+
 int main() {
     vector<string> name;
     vector<int> score;
-    int input, max, min, r1 = 0, r2 = 0, ad = 0;
+    int input, max, min;
+    int r1 = 0, r2 = 0, average = 0;
     string input2;
     while (true) {
         cin >> input2;
@@ -34,27 +41,27 @@ int main() {
     cout << "The idoit is: " << name[r2] << " " << min << endl;
     cout << "The Epic Eric Zheng is: " << name[r1] << " " << max << endl;
     for (int i = 0; i < score.size(); i++){
-        ad += score[i];
+        average += score[i];
     }
-    cout << "平均: " << ad / score.size() << endl;
-    vector<int> scorecopy;
+    cout << "平均: " << average / score.size() << endl;
+    vector<int> scoresort;
     for (int i = 0; i < score.size(); i++){
-        scorecopy.push_back(score[i]);
+        scoresort.push_back(score[i]);
     }
-    sort(scorecopy.begin(), scorecopy.end());
+    sort(scoresort.begin(), scoresort.end());
     map <int, int> found;
-    int ask = scorecopy[0];
-    found[scorecopy[0]] = 0;
+    int ask = scoresort[0];
+    found[scoresort[0]] = 0;
     for (int i = 0; i < score.size(); i++){
-        if (ask == scorecopy[i]) {
+        if (ask == scoresort[i]) {
             found[ask] += 1; 
         }
         else {
-            ask = scorecopy[i];
-            found[scorecopy[i]] = 1;
+            ask = scoresort[i];
+            found[scoresort[i]] = 1;
         }
     }
-    int many = found[scorecopy[0]];
+    int many = found[scoresort[0]];
     int rank;
     for (auto m: found) {
         rank = m.first;
@@ -66,6 +73,9 @@ int main() {
             rank = n.first;
         }
     }
-    cout << "眾數為: " << rank;
+    cout << "眾數為: " << rank << endl;
+    int tag;
+    (scoresort.size() % 2 == 0) ? tag = tagging(scoresort) : tag = scoresort[scoresort.size() / 2];
+    cout << "中位數為:" << tag;
       
 }
